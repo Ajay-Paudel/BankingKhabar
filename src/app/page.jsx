@@ -5,10 +5,10 @@ import { CircleLoader } from "react-spinners";
 
 function page() {
   const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(true); // Keep this
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Fetch data immediately on mount
+   
     fetch("https://bankingkhabar.com/wp-json/wp/v2/posts?_embed")
       .then((res) => res.json())
       .then((data) => {
@@ -16,14 +16,14 @@ function page() {
           data.map((post) => ({
             ...post,
             featured_image_src:
-              post._embedded?.["wp:featuredmedia"]?.[0]?.source_url || "", // fallback
+              post._embedded?.["wp:featuredmedia"]?.[0]?.source_url || "", 
           }))
         );
-        setLoading(false); // ✅ Hide loading once data is in
+        setLoading(false); 
       })
       .catch((err) => {
         console.error("Failed to fetch posts:", err);
-        setLoading(false); // Hide loader on error too
+        setLoading(false); 
       });
   }, []);
 

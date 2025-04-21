@@ -1,6 +1,7 @@
 "use client";
 import { Icon } from "@iconify/react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React, { useEffect, useState, useRef } from "react";
 
 function Header() {
@@ -9,7 +10,7 @@ function Header() {
   const [isClickedInside, setIsClickedInside] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const searchRef = useRef(null);
-  
+  const pathname = usePathname();
 
   useEffect(() => {
     fetch("https://bankingkhabar.com/wp-json/wp/v2/categories")
@@ -27,6 +28,10 @@ function Header() {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
 
   return (
     <>
@@ -122,7 +127,7 @@ function Header() {
 
         <div className="bg-red-500 relative">
           <ul
-            className={`lg:flex lg:justify-between lg:static absolute top-12 left-0 w-full bg-red-500 lg:bg-transparent text-center transition-all duration-300 ${
+            className={`lg:flex lg:justify-between lg:static absolute top-1 left-0 w-full bg-red-500 lg:bg-transparent text-center transition-all duration-300 ${
               isOpen ? "block" : "hidden"
             }`}
           >
